@@ -69,7 +69,7 @@ def authenticate(user_email_id, session_id):
 
 def login(userEmail, password):
     authenticatedUser = userService.authenticate(userEmail, password)
-    if len(authenticatedUser) == 1:
+    if authenticatedUser is not None:
         return sessionService.generateSessionId(userEmail)
     return False
 

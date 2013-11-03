@@ -37,7 +37,7 @@ def registerMovie():
         raise Exception("Authentication failed")
     movie_id = request.args.get('movie_id')
     Api.registerMovie(movie_id, user_id)
-    return "Done"
+    return json.dumps(json.dumps({'message': 'Done'}, cls=ObjectEncoder))
 
 
 @app.route("/get/saveMovie")
@@ -50,7 +50,7 @@ def saveMovie():
     movie_year = request.args.get('movie_year')
     movie_imdb_id = request.args.get('movie_imdb_id')
     Api.saveMovie(movie_title, movie_year, movie_imdb_id)
-    return "Done"
+    return json.dumps(json.dumps({'sessionId': session_id}, cls=ObjectEncoder))
 
 
 @app.route("/get/findAllForUser")
@@ -72,7 +72,8 @@ def createUser():
     print session_id
     if not session_id:
         raise Exception("Sorry, could not create user. User is already registered")
-    return session_id
+    return json.dumps(json.dumps({'sessionId': session_id}, cls=ObjectEncoder))
+
 
 
 @app.route("/get/findForUser")
@@ -93,7 +94,8 @@ def archiveMovieForUser():
         raise Exception("Authentication failed")
     movie_id = request.args.get('movie_id')
     Api.archiveMovieForUser(movie_id, user_id)
-    return "Done"
+    return json.dumps(json.dumps({'message': 'Done'}, cls=ObjectEncoder))
+
 
 @app.route("/login")
 def login():
@@ -102,7 +104,7 @@ def login():
     session_id = Api.login(userEmail, password)
     if not session_id:
         raise Exception("Authentication failed")
-    return session_id
+    return json.dumps(json.dumps({'sessionId': session_id}, cls=ObjectEncoder))
 
 
 if __name__ == "__main__":
