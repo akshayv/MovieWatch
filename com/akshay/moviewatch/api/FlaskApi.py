@@ -22,7 +22,7 @@ def getIMDBSuggestions():
     session_id = request.args.get('session_id')
     user_id = request.args.get('user_id')
     if not Api.authenticate(user_id, session_id):
-        return "Authentication failed"
+        raise Exception("Authentication failed")
     title = request.args.get('title')
     movies = Api.getIMDBSuggestionsForTitle(title)
     string = json.dumps([json.dumps(p, cls=ObjectEncoder) for p in movies])
@@ -34,7 +34,7 @@ def registerMovie():
     session_id = request.args.get('session_id')
     user_id = request.args.get('user_id')
     if not Api.authenticate(user_id, session_id):
-        return "Authentication failed"
+        raise Exception("Authentication failed")
     movie_id = request.args.get('movie_id')
     Api.registerMovie(movie_id, user_id)
     return "Done"
@@ -45,7 +45,7 @@ def saveMovie():
     session_id = request.args.get('session_id')
     user_id = request.args.get('user_id')
     if not Api.authenticate(user_id, session_id):
-        return "Authentication failed"
+        raise Exception("Authentication failed")
     movie_title = request.args.get('movie_title')
     movie_year = request.args.get('movie_year')
     movie_imdb_id = request.args.get('movie_imdb_id')
@@ -58,7 +58,7 @@ def getRegisteredMovies():
     session_id = request.args.get('session_id')
     user_id = request.args.get('user_id')
     if not Api.authenticate(user_id, session_id):
-        return "Authentication failed"
+        raise Exception("Authentication failed")
     movies = Mapper.mapMovies(Api.getRegisteredMovies(user_id))
     return json.dumps([json.dumps(p, cls=ObjectEncoder) for p in movies])
 
@@ -71,7 +71,7 @@ def createUser():
     session_id = Api.createUser(user_name, password, emailId)
     print session_id
     if not session_id:
-        return "Sorry, could not create user. User is already registered"
+        raise Exception("Sorry, could not create user. User is already registered")
     return session_id
 
 
@@ -80,7 +80,7 @@ def getNonArchivedMoviesForUser():
     session_id = request.args.get('session_id')
     user_id = request.args.get('user_id')
     if not Api.authenticate(user_id, session_id):
-        return "Authentication failed"
+        raise Exception("Authentication failed")
     movies = Mapper.mapMovies(Api.getNonArchivedMoviesForUser(user_id))
     return json.dumps([json.dumps(p, cls=ObjectEncoder) for p in movies])
 
@@ -90,7 +90,7 @@ def archiveMovieForUser():
     session_id = request.args.get('session_id')
     user_id = request.args.get('user_id')
     if not Api.authenticate(user_id, session_id):
-        return "Authentication failed"
+        raise Exception("Authentication failed")
     movie_id = request.args.get('movie_id')
     Api.archiveMovieForUser(movie_id, user_id)
     return "Done"
@@ -101,7 +101,7 @@ def login():
     password = request.args.get('password')
     session_id = Api.login(userEmail, password)
     if not session_id:
-        return "Authentication failed"
+        raise Exception("Authentication failed")
     return session_id
 
 
