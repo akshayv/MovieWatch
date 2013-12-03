@@ -9,7 +9,7 @@ class EmailService:
         self.send(user.emailId, subject, message)
 
     def send(self, emailId, subject, message):
-        fromaddr = 'akshay.irock@gmail.com'
+        fromaddr = 'akshay#####'
         toaddrs = [emailId]
 
         msg = MIMEText(message)
