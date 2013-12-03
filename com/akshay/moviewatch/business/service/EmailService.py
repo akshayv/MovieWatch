@@ -16,8 +16,8 @@ class EmailService:
         msg['Subject'] = subject
 
         # Credentials (if needed)
-        username = 'akshay.irock@gmail.com'
-        password = 'dragon@123'
+        username = 'akshay#####'
+        password = '######'
 
         # The actual mail send
         server = smtplib.SMTP('smtp.gmail.com:587')

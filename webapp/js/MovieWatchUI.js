@@ -5,7 +5,7 @@ var MovieWatchUI = (function () {
 
     MovieWatchUI.prototype.login = function () {
         var id = $('#address').val();
-        var password = $('#passord').val();
+        var password = $('#password').val();
         MovieWatchIntegration.login(id, password)
     };
 
